@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ post.title }} - BlogSite{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ post.title }}</h1>
+        <p class="text-muted">Published on {{ post.created_at|date:"F j, Y" }}</p>
+        
+        {% if post.cover_image %}
+            <div class="mb-4">
+                <img src="{% url 'blog:post_cover_redirect' post.id %}" class="img-fluid rounded" alt="{{ post.title }}">
+            </div>
+        {% endif %}
+        
+        <div class="post-body">
+            {{ post.body|linebreaks }}
+        </div>
+        
+        <div class="mt-5">
+            <a href="{% url 'blog:post_list' %}" class="btn btn-secondary">&larr; Back to List</a>
+        </div>
+    </article>
+{% endblock %}
